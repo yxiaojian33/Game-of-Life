@@ -210,6 +210,7 @@ public class ControlPnl extends JPanel implements ActionListener ,ChangeListener
 			try {
 				ct.setTablebyfile(e.getActionCommand());
 				ControlPnl.setcnttext();
+				
 			} catch (Exception e1) {
 				// TODO 自动生成的 catch 块
 			}
