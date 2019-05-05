@@ -1,4 +1,4 @@
-package Test;
+package xiaojian;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -24,7 +24,7 @@ import javax.swing.event.ChangeListener;
 
 
 public class ControlPnl extends JPanel implements ActionListener ,ChangeListener{
-	private static CellTable ct;
+	private static CellTableAdapter adapter;
 	JMenuBar menuBar=new JMenuBar();
     JMenu game_seting=new JMenu("游戏");
     JMenu preview_seting=new JMenu("预设");
@@ -40,7 +40,8 @@ public class ControlPnl extends JPanel implements ActionListener ,ChangeListener
     		         new JMenuItem("十五步"),
     		         new JMenuItem("蝴蝶"),
     		         new JMenuItem("60P5H2V0飞船"),
-    		         new JMenuItem("滑翔机枪")
+    		         new JMenuItem("滑翔机枪"),
+    		         new JMenuItem("一条杠")
     };
     JButton btn=new JButton();
     JButton once=new JButton();
@@ -51,9 +52,9 @@ public class ControlPnl extends JPanel implements ActionListener ,ChangeListener
     JSlider settime=new JSlider();
     JLabel refreshtime=new JLabel();
    // JButton icon[]=new JButton[8];
-    public ControlPnl(CellTable ct, Main main)
+    public ControlPnl(CellTableAdapter adapter, Main main)
     {
-    	this.ct=ct;
+    	this.adapter=adapter;
     	//setBackground(new Color(255,255,255));
     	setLayout(new FlowLayout());
     	
@@ -151,12 +152,12 @@ public class ControlPnl extends JPanel implements ActionListener ,ChangeListener
     public static void setcnttext()
     {
     	cnt.setForeground(Config.alive);
-    	cnt.setText(ct.getCount()+"");
+    	cnt.setText(adapter.getCount()+"");
     }
     public static void settimestext()
     {
     	times.setForeground(Config.alive);
-    	times.setText(ct.Gettimes()+"");
+    	times.setText(adapter.Gettimes()+"");
     }
     public void setIcon(String file, JButton iconButton) {
     		ImageIcon icon = new ImageIcon(file);
@@ -172,43 +173,43 @@ public class ControlPnl extends JPanel implements ActionListener ,ChangeListener
 	
 		if(e.getSource().equals(btn))
 		{
-		if(ct.isPause())  setIcon("./drawable/play.png",btn);
+		if(adapter.isPause())  setIcon("./drawable/play.png",btn);
 		else  setIcon("./drawable/pause.png",btn);
 		// TODO 自动生成的方法存根
-		ct.changePause();
-		RunThread b= new RunThread(ct);
+		adapter.changePause();
+		RunThread b= new RunThread(adapter);
 		b.start();
 		}
 		else if(e.getSource().equals(once)) 
 		{
-			ct.once();
+			adapter.once();
 		}
 		else if(e.getSource().equals(cleanbtn))
-			ct.clean();
+			adapter.clean();
 		else if(e.getSource().equals(color))
 		{
 			Config.setcolor();
-			ct.updatecolor();
+			adapter.GetCellTable(). updatecolor();
 		}
 		else if(e.getActionCommand()=="25*25")
 		{
-			ct.setTable(25,25);
-			ct.updatecolor();
+			adapter.GetCellTable().setTable(25,25);
+			adapter.GetCellTable().updatecolor();
 		}
 		else if(e.getActionCommand()=="50*50")
 		{
-			ct.setTable(50,50);
-			ct.updatecolor();
+			adapter.GetCellTable().setTable(50,50);
+			adapter.GetCellTable().updatecolor();
 		}
 		else if(e.getActionCommand()=="100*100")
 		{
-			ct.setTable(100,100);
-			ct.updatecolor();
+			adapter.GetCellTable().setTable(100,100);
+			adapter.GetCellTable().updatecolor();
 		}
 		else
 		{
 			try {
-				ct.setTablebyfile(e.getActionCommand());
+				adapter.setTablebyfile(e.getActionCommand());
 				ControlPnl.setcnttext();
 				
 			} catch (Exception e1) {
