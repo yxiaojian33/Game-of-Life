@@ -1,4 +1,4 @@
-package Test;
+package xiaojian;
 
 import java.awt.Color;
 

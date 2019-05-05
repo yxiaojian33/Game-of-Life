@@ -1,25 +1,25 @@
-package Test;
+package xiaojian;
 
 public class RunThread extends Thread{
-	private CellTable ct;
+	private CellTableAdapter adapter;
 	
-	public RunThread(CellTable ct)
+	public RunThread(CellTableAdapter Adapter)
 	{
-		this.ct=ct;
+		this.adapter=Adapter;
 	}
 	public void change()
 	{
-		ct.changePause();
+		adapter.changePause();
 	}
 
 	@Override
 	public void run() 
 	{
 	// TODO 自动生成的方法存根
-		while(ct.isPause()) 
+		while(adapter.isPause()) 
 		{
 		try {
-				ct.once();
+			adapter.once();
 				Thread.sleep(Config.freshtime);
 			} catch (InterruptedException e)
 		    {
