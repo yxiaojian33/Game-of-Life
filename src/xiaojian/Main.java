@@ -19,12 +19,12 @@ public class Main extends JFrame {
   public Main() {
     ct = new CellTable();
     ct.setPreferredSize(new Dimension(800,800));
-    adapter=new CellTableAdapter(ct);
+    adapter = new CellTableAdapter(ct);
     cpnl = new ControlPnl(adapter,this);
     cpnl.setPreferredSize(new Dimension(800,100));
     setTitle("小剑生命游戏");
     try {
-    	adapter.setTablebyfile("滑翔机枪");
+      adapter.setTablebyfile("滑翔机枪");
     } catch (Exception e) {
       // TODO 自动生成的 catch 块
       e.printStackTrace();
@@ -38,6 +38,7 @@ public class Main extends JFrame {
     this.setDefaultCloseOperation(EXIT_ON_CLOSE);
     setResizable(false);
      
+    
   }
   
   /**

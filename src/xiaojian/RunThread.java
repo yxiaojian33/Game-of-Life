@@ -3,9 +3,9 @@ package xiaojian;
 public class RunThread extends Thread{
 	private CellTableAdapter adapter;
 	
-	public RunThread(CellTableAdapter Adapter)
+	public RunThread (CellTableAdapter adapter)
 	{
-		this.adapter=Adapter;
+		this.adapter=adapter;
 	}
 	public void change()
 	{
@@ -20,7 +20,7 @@ public class RunThread extends Thread{
 		{
 		try {
 			adapter.once();
-				Thread.sleep(Config.freshtime);
+				Thread.sleep(ConfigUtils.freshtime);
 			} catch (InterruptedException e)
 		    {
 				// TODO 自动生成的 catch 块

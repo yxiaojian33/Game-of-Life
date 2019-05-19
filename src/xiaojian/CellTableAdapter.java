@@ -6,7 +6,7 @@ import java.io.FileInputStream;
 import java.io.InputStreamReader;
 
 public class CellTableAdapter {
-	private static CellTable ct;
+	private CellTable ct;
 	private boolean pause;
 	private int times = 0;//繁衍次数;
 	private int [][] number;
@@ -28,7 +28,7 @@ public class CellTableAdapter {
 		 pause=pause?false:true;
 		 return pause;
 	 }
-	 public int Gettimes() {
+	 public int gettimes() {
 		 return times;
 	 }
     public void clean()
@@ -39,6 +39,21 @@ public class CellTableAdapter {
    	 for(int i=0;i<ct.Getrow();i++)
 	            for(int j=0;j<ct.Getcol();j++)
 	            	ct.getCell(i, j).makeDie();
+    }
+    /**
+     * 返回存活细胞，测试时使用
+     * @return
+     */
+    public String []getAliveCell() {
+    	String str[]=new String[getCount()];
+    	int index = 0;
+   	 for(int i=0;i<ct.Getrow();i++)
+         for(int j=0;j<ct.Getcol();j++)
+         	if(ct.getCell(i, j).isAlive()) {
+         		str[index++]=i+" "+j;
+         	}
+		return str;
+    	
     }
     public void setTablebyfile(String path) throws Exception
 	 {
@@ -51,19 +66,21 @@ public class CellTableAdapter {
 		 while ((lineTxt = br.readLine()) != null)
 		 {	
 			String array[]=lineTxt.split(" ") ;
-			int first= Integer.valueOf(array[0])>=0?Integer.valueOf(array[0]):ct.Getrow()+Integer.valueOf(array[0]);
-			int second= Integer.valueOf(array[1])>=0?Integer.valueOf(array[1]):ct.Getcol()+Integer.valueOf(array[1]);
 			try
 			{
+			int first= Integer.valueOf(array[0])>=0?Integer.valueOf(array[0]):ct.Getrow()+Integer.valueOf(array[0]);
+			int second= Integer.valueOf(array[1])>=0?Integer.valueOf(array[1]):ct.Getcol()+Integer.valueOf(array[1]);
 				ct.getCell(first,second).makeAlive();
-			}catch(ArrayIndexOutOfBoundsException e)
+			}
+			catch(NumberFormatException e) {}
+			catch(ArrayIndexOutOfBoundsException e)
 			{
-				throw new Exception("细胞生活区不足");
+				//throw new Exception("细胞生活区不足");
 			}
 		 }
 		 
 	 }
-    public void getNumber()
+    public int[][] getNumber()
     {
     	number=new int[ct.Getrow()][ct.Getcol()];
    	 	for(int i=0;i<ct.Getrow();i++)
@@ -74,6 +91,7 @@ public class CellTableAdapter {
 	               
 	            }
 	        }
+   	 	return number;
     }
     public int getNearNumber(int i,int j) {
    	 int num=0;
@@ -81,7 +99,9 @@ public class CellTableAdapter {
         {
             for(int y=j-1;y<j+2;y++)
             {
-                if(z<0||z>=ct.Getrow()||y<0||y>=ct.Getcol()){continue;}//边界越界
+                if(z < 0 || z >= ct.Getrow() || y < 0||y >= ct.Getcol()){
+                	continue;
+                	}//边界越界
                 if(ct.getCell(z, y).isAlive())
                     num++;
             }
@@ -108,7 +128,7 @@ public class CellTableAdapter {
 	        //周围活细胞的个数在上下限内，则变为活细胞，否则变成死细胞
 		 for(int i=0;i<ct.Getrow();i++)
 	        {
-	            for(int j=0;j<ct.Getcol();j++)
+              for (int j = 0;j < ct.Getcol();j++)
 	            {
 	                switch(number[i][j])
 	                {
@@ -119,7 +139,7 @@ public class CellTableAdapter {
 	                    	ct.getCell(i, j).makeAlive();
 	                        break;
 	                    default:
-	                    	ct.getCell(i, j).makeDie();;
+	                    	ct.getCell(i, j).makeDie();
 	                }
 	            }
 	        }

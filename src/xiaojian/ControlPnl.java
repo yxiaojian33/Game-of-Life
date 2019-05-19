@@ -23,11 +23,11 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 
-public class ControlPnl extends JPanel implements ActionListener ,ChangeListener{
+public class ControlPnl extends JPanel implements ActionListener,ChangeListener{
 	private static CellTableAdapter adapter;
 	JMenuBar menuBar=new JMenuBar();
-    JMenu game_seting=new JMenu("游戏");
-    JMenu preview_seting=new JMenu("预设");
+	JMenu game_seting=new JMenu("游戏");
+	JMenu preview_seting=new JMenu("预设");
     JMenuItem gs[]= {new JMenuItem("25*25"), 
     		         new JMenuItem("50*50"),  
     		         new JMenuItem("100*100")};
@@ -105,7 +105,7 @@ public class ControlPnl extends JPanel implements ActionListener ,ChangeListener
         cnttext.setHorizontalAlignment(JLabel.CENTER);
         cnt.setPreferredSize(new Dimension(30,10));
         cnt.setHorizontalAlignment(JLabel.CENTER);
-        cnt.setForeground(Config.alive);
+        cnt.setForeground(ConfigUtils.alive);
         //细胞存活数显示
         JLabel timestext=new JLabel();
         timestext.setPreferredSize(new Dimension(100,20));
@@ -114,7 +114,7 @@ public class ControlPnl extends JPanel implements ActionListener ,ChangeListener
         timestext.setHorizontalAlignment(JLabel.CENTER);
         times.setPreferredSize(new Dimension(30,10));
         times.setHorizontalAlignment(JLabel.CENTER);
-        times.setForeground(Config.alive);
+        times.setForeground(ConfigUtils.alive);
         //细胞存活数显示
         settime=new JSlider(SwingConstants.HORIZONTAL,1,1000,1);
         settime.setPreferredSize(new Dimension(200,10));
@@ -124,7 +124,7 @@ public class ControlPnl extends JPanel implements ActionListener ,ChangeListener
         refreshtime.setPreferredSize(new Dimension(50,10));
         refreshtime.setForeground(Color.MAGENTA);
 
-        refreshtime.setText(Config.freshtime+"ms");
+        refreshtime.setText(ConfigUtils.freshtime+"ms");
         
 		/*
 		 * for(int i=0;i<8;i++) { icon[i]=new JButton(); icon[i].setBackground(new
@@ -151,13 +151,13 @@ public class ControlPnl extends JPanel implements ActionListener ,ChangeListener
     }
     public static void setcnttext()
     {
-    	cnt.setForeground(Config.alive);
+    	cnt.setForeground(ConfigUtils.alive);
     	cnt.setText(adapter.getCount()+"");
     }
-    public static void settimestext()
-    {
-    	times.setForeground(Config.alive);
-    	times.setText(adapter.Gettimes()+"");
+    
+  public static void settimestext() {
+    	times.setForeground(ConfigUtils.alive);
+    	times.setText(adapter.gettimes()+"");
     }
     public void setIcon(String file, JButton iconButton) {
     		ImageIcon icon = new ImageIcon(file);
@@ -188,7 +188,7 @@ public class ControlPnl extends JPanel implements ActionListener ,ChangeListener
 			adapter.clean();
 		else if(e.getSource().equals(color))
 		{
-			Config.setcolor();
+			ConfigUtils.setcolor();
 			adapter.GetCellTable(). updatecolor();
 		}
 		else if(e.getActionCommand()=="25*25")
@@ -221,7 +221,7 @@ public class ControlPnl extends JPanel implements ActionListener ,ChangeListener
 	public void stateChanged(ChangeEvent e) {
 		// TODO 自动生成的方法存根
 		refreshtime.setText(settime.getValue()+"ms");
-		Config.settime(settime.getValue());
+		ConfigUtils.settime(settime.getValue());
 	}
 	
 }

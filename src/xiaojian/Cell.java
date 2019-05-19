@@ -14,7 +14,7 @@ public class Cell extends JButton implements MouseListener {
    * 并为其添加鼠标事件，点击改变存活状态.
   */ 
   public Cell() {
-    setBackground(Config.death);
+    setBackground(ConfigUtils.death);
     this.addMouseListener(this);
     
   }
@@ -29,7 +29,7 @@ public class Cell extends JButton implements MouseListener {
   */ 
   public void makeAlive() {
     isalive = true;
-    setBackground(Config.alive);
+    setBackground(ConfigUtils.alive);
     
   }
   
@@ -38,7 +38,7 @@ public class Cell extends JButton implements MouseListener {
   */ 
   public void makeDie() {
     isalive = false;
-    setBackground(Config.death);
+    setBackground(ConfigUtils.death);
 
   }
 
@@ -52,12 +52,12 @@ public class Cell extends JButton implements MouseListener {
   public void mousePressed(MouseEvent e) {
     // TODO 自动生成的方法存根
     if (isalive) {
-      setBackground(Config.death);
+      setBackground(ConfigUtils.death);
       isalive = false;
   }
 	else 
 	{
-		setBackground(Config.alive);
+		setBackground(ConfigUtils.alive);
 		isalive=true;
 	}
 
